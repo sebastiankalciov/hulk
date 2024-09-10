@@ -3,8 +3,11 @@
 
 ## Status
 - [x] Finish the prototype in Figma 
-- [ ] Code the app (more details soon)
-## Figma preview
+- [x] Add the connection with Firebase
+- [x] Add a basic auth system (sign in, sign up, log out)
+- [x] Create the landing page
+## Current preview
+<img src = "./figma-preview/landingCurrent.jpeg" width = "362px" height = "800px"/>
 
 ### Landing page
 
