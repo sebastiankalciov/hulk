@@ -1,37 +1,54 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {Stack, useRouter, useSegments} from "expo-router";
+import {useEffect, useState} from "react";
+import {auth} from "@/firebase/config";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import {onAuthStateChanged, User} from "@firebase/auth";
+import {ActivityIndicator, View} from "react-native";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+    const [initializing, setInitiliazing] = useState(true);
+    const [user, setUser] = useState<User| null>();
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    const router = useRouter();
+    const segments = useSegments();
+
+
+
+    const authStateChanged = (user: User | null) => {
+        console.log('authStateChanged ', user);
+        setUser(user);
+        if (initializing) setInitiliazing(false);
     }
-  }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+    useEffect(() => {
+        const subscriber = onAuthStateChanged(auth, authStateChanged);
+        return subscriber;
+    }, []);
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+    useEffect(() => {
+        if (initializing) return;
+
+        const isInAuthDirectory = segments[0] === 'auth';
+
+        if (user && !isInAuthDirectory) {
+            router.replace('auth/HomeScreen');
+        } else if (!user && isInAuthDirectory){
+            router.replace('/');
+        }
+    }, [user, initializing]);
+
+    if (initializing)
+        return (
+            <View>
+                <ActivityIndicator size = "large"/>
+            </View>
+        )
+
+    return (
+
+        <Stack screenOptions = {{headerShown: false}}>
+            <Stack.Screen name = "index"/>
+        </Stack>
+
+    )
 }
