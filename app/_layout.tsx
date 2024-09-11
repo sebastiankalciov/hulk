@@ -28,10 +28,10 @@ export default function RootLayout() {
     useEffect(() => {
         if (initializing) return;
 
-        const isInAuthDirectory = segments[0] === 'auth';
+        const isInAuthDirectory = segments[0] === 'dashboard';
 
         if (user && !isInAuthDirectory) {
-            router.replace('auth/HomeScreen');
+            router.replace('dashboard/HomeScreen');
         } else if (!user && isInAuthDirectory){
             router.replace('/');
         }
