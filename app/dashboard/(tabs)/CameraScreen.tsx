@@ -1,14 +1,15 @@
-import {Button, View, Text, StyleSheet, SafeAreaView, Pressable} from "react-native";
+import {Button, View, Text, StyleSheet, Pressable} from "react-native";
 import {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {getDownloadURL, ref, uploadBytes} from "@firebase/storage";
 import {auth, firestore, storage} from "@/firebase/config"
 import {addDoc, collection, doc} from "@firebase/firestore";
-import {Link} from "expo-router";
+import {getCurrentDate, getCurrentTime} from "@/hooks/getCurrentDate";
+import {FontAwesome5} from "@expo/vector-icons";
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
-    const reference = useRef(null);
+    const referenceToImage = useRef(null);
     const [imageUri, setImageUri] = useState(null);
 
     if (!permission)
@@ -17,7 +18,7 @@ export default function CameraScreen() {
     if (!permission.granted) {
         return (
             <View style = {styles.container}>
-                <Text style = {styles.titleContainer}>Please grant the permission to access the camera</Text>
+                <Text>Please grant the permission to access the camera</Text>
                 <Button title={"Grant permission"} onPress={requestPermission}/>
             </View>
         )
@@ -25,7 +26,7 @@ export default function CameraScreen() {
 
     const takePicture = async () => {
         // @ts-ignore
-        const photo = await reference.current.takePictureAsync();
+        const photo = await referenceToImage.current.takePictureAsync();
         setImageUri(photo.uri);
     }
 
@@ -34,9 +35,9 @@ export default function CameraScreen() {
             const response = await fetch(imageURI);
             const blob = await response.blob();
 
-            const reference = ref(storage,  `users/${auth.currentUser?.email}/meals/1/image.jpg`);
+            const referenceToImage = ref(storage,  `users/${auth.currentUser?.email}/meals/1/image.jpg`);
 
-            const result = await uploadBytes(reference, blob);
+            const result = await uploadBytes(referenceToImage, blob);
             const url = await getDownloadURL(result.ref);
             console.log(url);
             return url;
@@ -46,7 +47,7 @@ export default function CameraScreen() {
         }
     }
 
-    const addMeal = async (email: string, meal: any)  => {
+    const addMealInDatabase = async (email: string, meal: any)  => {
         try {
             const userReference = doc(firestore, "users", email);
             const mealsCollection = collection(userReference, "meals");
@@ -57,18 +58,21 @@ export default function CameraScreen() {
             console.log("eroare cand adaugi masa: ", error)
         }
     }
-    const testButton = () => {
+    const addNewMeal = () => {
+        takePicture();
         const imageURL = uploadImage(imageUri).then(image => {
-            addMeal("seb@gmail.com", {imageURL: image});
+            addMealInDatabase("seb@gmail.com", {imageURL: image, date: getCurrentDate()});
         })
 
     }
-    testButton();
+    //testButton();
     return (
         <View style = {styles.container} >
-            <CameraView style={styles.camera} facing={facing} ref = {reference}>
+            <CameraView style={styles.camera} facing={facing} ref = {referenceToImage}>
                 <View style={styles.buttonContainer}>
-                    <Button title={"Take picture"} onPress={takePicture}/>
+                    <Pressable style = {styles.takePictureButton} onPress={addNewMeal}>
+                        <FontAwesome5 name="circle" size={70} color="#ffffff" />
+                    </Pressable>
                 </View>
             </CameraView>
 
@@ -84,23 +88,23 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         padding: 10
     },
-    titleContainer: {
-        padding: 20,
-        flex: 1,
-
-    },
     camera: {
         flex: 1,
     },
     buttonContainer: {
         flex: 1,
-        flexDirection: 'row',
+        justifyContent: "flex-end",
         backgroundColor: 'transparent',
-        margin: 64,
+
     },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
+    icon: {
+        position: "absolute",
+        color: "#f7f7f7"
+    },
+
+    takePictureButton: {
+        alignItems: "center",
+        justifyContent: "center",
+
     },
 })
