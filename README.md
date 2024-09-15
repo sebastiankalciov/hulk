@@ -6,31 +6,12 @@
 - [x] Add the connection with Firebase
 - [x] Add a basic auth system (sign in, sign up, log out)
 - [x] Create the landing page
+- [x] Add 4 screens (dashboard, meals, camera and profile)
+- [x] Add camera functionality
+
 ## Current preview
-<img src = "./figma-preview/landingCurrent.jpeg" width = "362px" height = "800px"/>
-
-### Landing page
-
-<img src = "./figma-preview/landing-page.png" width = "432px" height = "800px"/>
-
-### Sign In page
-
-<img src = "./figma-preview/sign-in-page.png" width = "432px" height = "800px"/>
-
-### Sign Up page
-
-<img src = "./figma-preview/sign-up-page.png" width = "432px" height = "800px"/>
-
-### Home page
-
-<img src = "./figma-preview/home-page.png" width = "432px" height = "800px"/>
-
-### Meal page
-
-<img src = "./figma-preview/meal-page.png" width = "432px" height = "800px"/>
-
-### Profile page
-
-<img src = "./figma-preview/profile-page.png" width = "432px" height = "800px"/>
-
-
+<img src = "./figma-preview/landingScreenCurrent.jpeg" width = "362px" height = "800px"/>
+<img src = "./figma-preview/homeScreenCurrent.jpeg" width = "362px" height = "800px"/>
+<img src = "./figma-preview/mealsScreenCurrent.jpeg" width = "362px" height = "800px"/>
+<img src = "./figma-preview/cameraScreenCurrent.jpeg" width = "362px" height = "800px"/>
+<img src = "./figma-preview/profileScreenCurrent.jpeg" width = "362px" height = "800px"/>
