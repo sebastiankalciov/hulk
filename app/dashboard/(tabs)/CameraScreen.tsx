@@ -86,10 +86,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#131a24",
         paddingTop: 30,
-        padding: 10
+
     },
     camera: {
         flex: 1,
+        paddingBottom: 5
     },
     buttonContainer: {
         flex: 1,

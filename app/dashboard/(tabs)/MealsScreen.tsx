@@ -3,7 +3,7 @@ import * as Font from "expo-font";
 import {addDoc, collection, doc} from "@firebase/firestore";
 import {auth, firestore} from "@/firebase/config"
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-export default function HomeScreen() {
+export default function MealsScreen() {
 
     const [fontsLoaded] = Font.useFonts({
         'Inter-Bold': require('@/assets/fonts/Inter/static/Inter-Bold.ttf'),
@@ -22,20 +22,9 @@ export default function HomeScreen() {
         <View style = {styles.container} >
             <View style={styles.titleContainer}>
                 <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
-                <Text style = {styles.title}>Dashboard</Text>
+                <Text style = {styles.title}>Recent meals</Text>
             </View>
-            <View style = {styles.activityContainer}>
-                <Text style = {styles.subtitle}>Today activity</Text>
-                <View style = {styles.activityInsideContainer}>
-                    <View style = {styles.activityTitleBox}>
-                        <MaterialCommunityIcons name="food" size={24} color="#f0cd53" />
-                        <Text style = {styles.titleCaloriesBox}> Calories </Text>
-                    </View>
-                    <Text style = {styles.caloriesValueText}>
-                        <Text style = {{fontWeight: "bold", fontSize: 20}}>2018</Text> kcal (dummy text)
-                    </Text>
-                </View>
-            </View>
+
         </View>
     )
 }

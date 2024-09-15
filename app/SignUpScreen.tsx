@@ -66,7 +66,7 @@ export default function SignUpScreen() {
         <SafeAreaView style = {styles.container} >
 
             <KeyboardAvoidingView behavior = "padding">
-                <Text style = {styles.title}>Welcome to <Text style = {{color: "#a595ff", fontSize: 35}}>Hulk</Text></Text>
+                <Text style = {styles.title}>Welcome to <Text style = {{color: "#f0cd53", fontSize: 35}}>Hulk</Text></Text>
                 <Text style = {styles.subtitle}>The calorie tracker</Text>
                 <Text style = {styles.textIntro}>Build your meal and use gamma rays to see its power</Text>
 
@@ -173,11 +173,11 @@ const styles = StyleSheet.create({
         marginTop: 50,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#7d65d2",
+        backgroundColor: "#f0cd53",
         borderRadius: 25,
     },
     signInButtonText: {
-        color: "#ffffff",
+        color: "#191919",
         fontFamily: "Inter-ExtraBold",
         fontWeight: "bold",
         fontSize: 25,

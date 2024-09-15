@@ -1,6 +1,7 @@
 import {Button, View, Text, StyleSheet, SafeAreaView, Pressable} from "react-native";
 import {signOut} from "@firebase/auth";
 import {auth} from "@/firebase/config";
+import {FontAwesome5} from "@expo/vector-icons";
 export default function ProfileScreen() {
 
     const logOut = () => {
@@ -11,8 +12,12 @@ export default function ProfileScreen() {
         <View style = {styles.container} >
             <View style={styles.titleContainer}>
                 <Text style = {styles.title}>Profile</Text>
+                <Pressable style = {styles.logOutButton} onPress={logOut}>
+                    <FontAwesome5 name="door-open" size={24} color="black" />
+                    <Text style = {styles.logOutButtonText}>Log out</Text>
+                </Pressable>
             </View>
-            <Pressable style = {styles.logOutButton} onPress={logOut}><Text style = {styles.logOutButtonText}>Log out</Text></Pressable>
+
         </View>
     )
 }
@@ -27,17 +32,21 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         padding: 20,
-        flex: 1,
 
+        flexDirection: "row"
     },
     title: {
         fontSize: 25,
         fontFamily: "Inter-ExtraBold",
         fontWeight: "bold",
-        color: "#f7f7f7"
+        color: "#f7f7f7",
+        paddingRight: "25%",
     },
     logOutButton: {
-        marginBottom: 30,
+        width: "50%",
+        height: "120%",
+
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#f04b4b",
@@ -45,10 +54,11 @@ const styles = StyleSheet.create({
 
     },
     logOutButtonText: {
+
         color: "#161616",
         fontFamily: "Inter-ExtraBold",
         fontWeight: "bold",
-        fontSize: 25,
+        fontSize: 18,
         letterSpacing: 0.5,
         padding: 5,
     },
