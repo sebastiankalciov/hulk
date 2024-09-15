@@ -4,7 +4,6 @@ import {
     StyleSheet,
     KeyboardAvoidingView,
     TextInput,
-    Button,
     Pressable,
     ActivityIndicator, StatusBar, SafeAreaView, Platform
 } from "react-native";
@@ -18,6 +17,7 @@ import * as Font from "expo-font";
 import {Link} from "expo-router";
 
 export default function Index() {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -31,19 +31,7 @@ export default function Index() {
     if (!fontsLoaded) {
         return <View/>
     }
-    const signUp = async () => {
-        setLoading(true);
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
 
-        } catch (err: any) {
-            const error = err as FirebaseError;
-            alert('Failed creating an account: ' + error.message);
-        } finally {
-            setLoading(false);
-        }
-
-    }
     const signIn = async () => {
         setLoading(true);
         try {
@@ -52,6 +40,7 @@ export default function Index() {
         } catch (err: any) {
             const error = err as FirebaseError;
             alert('Failed logging into the account: ' + error.message);
+
         } finally {
             setLoading(false);
         }
@@ -78,6 +67,7 @@ export default function Index() {
                 />
                 <MaterialIcons style={styles.icon} name="email" size={20} />
             </View>
+
             <View style = {styles.inputContainer}>
                 <TextInput
                     style = {styles.input}
@@ -123,6 +113,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 5,
     },
+
     inputContainer: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -130,22 +121,23 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.5,
         height: 50,
         marginTop: 20,
-
     },
+
     title: {
         fontSize: 35,
         fontFamily: "Inter-ExtraBold",
         textAlign: 'center',
         color: "#f8f8f8"
     },
+
     subtitle: {
         fontSize: 28,
         fontFamily: "Inter-Bold",
-
         textAlign: 'center',
         marginBottom: 20,
         color: "#f2f2f2"
     },
+
     textIntro: {
         fontSize: 15,
         fontFamily: "Inter-Regular",
@@ -154,15 +146,18 @@ const styles = StyleSheet.create({
         margin: 10,
         color: "#c0c0c0"
     },
+
     input: {
         flex: 1,
         paddingLeft: 30,
         color: "#f7f7f7"
     },
+
     icon: {
         position: "absolute",
         color: "#f7f7f7"
     },
+
     signInButton: {
         marginTop: 50,
         alignItems: "center",
@@ -170,6 +165,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f0cd53",
         borderRadius: 25,
     },
+
     signInButtonText: {
         color: "#191919",
         fontFamily: "Inter-ExtraBold",
@@ -178,6 +174,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         padding: 5,
     },
+
     createAccountContainer: {
         marginTop: 20,
         flexDirection: "row",
@@ -185,11 +182,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
 
     },
+
     createAccountText: {
         fontSize: 14,
         color: "#f7f7f7",
         lineHeight: 20,
     },
+
     signUpText: {
         color: '#f7f7f7',
         fontSize: 14,

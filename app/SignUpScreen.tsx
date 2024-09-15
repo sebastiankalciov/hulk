@@ -40,28 +40,28 @@ export default function SignUpScreen() {
                     "users",
                     email
                 ), {
-
                 }
             )
-            console.log("user adaugat cu succes bro")
+            console.log("user adaugat cu succes bro");
         } catch(error) {
-            console.log("eroare cand adaugi useru: ", error)
+            console.log("eroare cand adaugi useru: ", error);
         }
     }
     const signUp = async () => {
         setLoading(true);
         try {
-
             await createUserWithEmailAndPassword(auth, email, password);
             addUser(email);
+
         } catch (err: any) {
             const error = err as FirebaseError;
             alert('Failed creating an account: ' + error.message);
+
         } finally {
             setLoading(false);
         }
-
     }
+
     return (
         <SafeAreaView style = {styles.container} >
 
@@ -73,7 +73,6 @@ export default function SignUpScreen() {
                 <View style = {styles.inputContainer}>
                     <TextInput
                         style = {styles.input}
-
                         value = {email}
                         onChangeText={setEmail}
                         autoCapitalize="none"
@@ -83,6 +82,7 @@ export default function SignUpScreen() {
                     />
                     <MaterialIcons style={styles.icon} name="email" size={20} />
                 </View>
+
                 <View style = {styles.inputContainer}>
                     <TextInput
                         style = {styles.input}
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 5,
     },
+
     inputContainer: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -135,8 +136,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.5,
         height: 50,
         marginTop: 20,
-
     },
+
     title: {
         fontSize: 30,
         fontFamily: "Inter-ExtraBold",
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: "#f7f7f7"
     },
+
     subtitle: {
         fontSize: 30,
         fontFamily: "Inter-ExtraBold",
@@ -152,6 +154,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: "#f7f7f7"
     },
+
     textIntro: {
         fontSize: 15,
         fontFamily: "Inter-Regular",
@@ -160,15 +163,18 @@ const styles = StyleSheet.create({
         margin: 10,
         color: "#c0c0c0"
     },
+
     input: {
         flex: 1,
         paddingLeft: 30,
         color: "#f7f7f7"
     },
+
     icon: {
         position: "absolute",
         color: "#f7f7f7"
     },
+
     signInButton: {
         marginTop: 50,
         alignItems: "center",
@@ -176,6 +182,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f0cd53",
         borderRadius: 25,
     },
+
     signInButtonText: {
         color: "#191919",
         fontFamily: "Inter-ExtraBold",
@@ -184,6 +191,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         padding: 5,
     },
+
     createAccountContainer: {
         marginTop: 20,
         flexDirection: "row",
@@ -191,11 +199,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
 
     },
+
     createAccountText: {
         fontSize: 14,
         color: "#f7f7f7",
         lineHeight: 20,
     },
+
     signUpText: {
         color: '#f7f7f7',
         fontSize: 14,
