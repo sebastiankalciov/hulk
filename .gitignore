@@ -1,4 +1,5 @@
 node_modules/
+constants/getCredentials.tsx
 .expo/
 dist/
 npm-debug.*

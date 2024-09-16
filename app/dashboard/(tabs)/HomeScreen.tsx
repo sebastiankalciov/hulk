@@ -1,7 +1,6 @@
 import {Button, View, Text, StyleSheet, SafeAreaView} from "react-native";
 import * as Font from "expo-font";
-import {addDoc, collection, doc} from "@firebase/firestore";
-import {auth, firestore} from "@/firebase/config"
+import getInfo from "@/constants/getNutritionInfo"
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 export default function HomeScreen() {
 
@@ -13,6 +12,11 @@ export default function HomeScreen() {
 
     if (!fontsLoaded) {
         return <View/>
+    }
+
+    // test button to try the openai api
+    const testButton = () => {
+        getInfo();
     }
     // TO-DO
     // Render the recent meals
@@ -34,6 +38,7 @@ export default function HomeScreen() {
                     <Text style = {styles.caloriesValueText}>
                         <Text style = {{fontWeight: "bold", fontSize: 20}}>2018</Text> kcal (dummy text)
                     </Text>
+                    <Button title={"test"} onPress={testButton}/>
                 </View>
             </View>
         </View>
