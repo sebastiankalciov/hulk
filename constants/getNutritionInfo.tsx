@@ -13,7 +13,7 @@ const openai = new OpenAI({
 });
 
 const instruction = "In this photo it's supposed to be food." +
-    "Return a string JSON on the following format:" +
+    "Return a string JSON of the following format:" +
     "{'calories': 'number of calories the food has', 'proteins': 'how many proteins the food has'," +
     "'carbohydrates': 'how many carbohydrates the food has" +
     "'fats': 'how many fats the food has}"

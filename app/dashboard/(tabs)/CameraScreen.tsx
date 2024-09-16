@@ -65,6 +65,21 @@ export default function CameraScreen() {
         })
 
     }
+
+    // const responseJSON = JSON.dummyfunction(getNutritionInfo(imageURL));
+    // if the image is not accurate
+    // alert("Not a good image")
+    // else
+    // return to HomeScreen the object
+    /*
+    {
+        "calories" : 1000,
+        "proteins" : 100,
+        "carbohydrates" : 200,
+        "fats" : 30,
+
+     */
+
     //testButton();
     return (
         <View style = {styles.container} >

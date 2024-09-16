@@ -29,7 +29,7 @@ export default function HomeScreen() {
                 <Text style = {styles.title}>Dashboard</Text>
             </View>
             <View style = {styles.activityContainer}>
-                <Text style = {styles.subtitle}>Today activity</Text>
+                <Text style = {styles.subtitle}>Today's activity</Text>
                 <View style = {styles.activityInsideContainer}>
                     <View style = {styles.activityTitleBox}>
                         <MaterialCommunityIcons name="food" size={24} color="#f0cd53" />
