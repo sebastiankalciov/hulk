@@ -59,25 +59,26 @@ export default function CameraScreen() {
             console.log("eroare cand adaugi masa: ", error)
         }
     }
-    const addNewMeal = () => {
+    const addNewMeal = async () => {
 
-        takePicture();
+        await takePicture().then(r =>
+            uploadImage(imageUri).then(async image => {
+                console.log('test')
+                const infoJSONObject = await getInfo(image);
+                addMealInDatabase(`${auth.currentUser?.email}`, {
+                    imageURL: image,
+                    date: getCurrentDate(),
+                    time: getCurrentTime(),
+                    calories: infoJSONObject.calories,
+                    proteins: infoJSONObject.proteins,
+                    carbohydrates: infoJSONObject.carbohydrates,
+                    fats: infoJSONObject.fats,
 
-        const imageURL = uploadImage(imageUri).then(async image => {
-            console.log('test')
-            const infoJSONObject = await getInfo(image);
-            addMealInDatabase(`${auth.currentUser?.email}`, {
-                imageURL: image,
-                date: getCurrentDate(),
-                time: getCurrentTime(),
-                calories: infoJSONObject.calories,
-                proteins: infoJSONObject.proteins,
-                carbohydrates: infoJSONObject.carbohydrates,
-                fats: infoJSONObject.fats,
+                });
+                alert("Meal added successfully!")
+            })
+        );
 
-            });
-            alert("Meal added successfully!")
-        })
     }
 
     return (

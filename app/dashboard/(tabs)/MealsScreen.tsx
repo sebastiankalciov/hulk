@@ -7,12 +7,14 @@ import {
     ActivityIndicator,
     FlatList,
     ScrollView,
-    Image
+    Image, Pressable
 } from "react-native";
 import * as Font from "expo-font";
 import {collection, doc, getDocs} from "@firebase/firestore";
 import {auth, firestore} from "@/firebase/config"
 import {useEffect, useState} from "react";
+import {AntDesign, Feather, FontAwesome, FontAwesome5} from "@expo/vector-icons";
+import MealBox from "@/components/MealBox";
 
 export default function MealsScreen() {
     const [meals, setMeals] = useState([]);
@@ -73,20 +75,15 @@ export default function MealsScreen() {
         )
     }
 
+
     return (
         <ScrollView style = {styles.container} >
             <View style={styles.titleContainer}>
                 <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
                 <Text style = {styles.title}>Recent meals</Text>
                 <View>
-                    {meals.map((meal:any) =>(
-                        <View key = {meal.id} style = {styles.mealContainer}>
-                            <Image style = {styles.mealImage} source={{uri: meal.imageURL}}/>
-                            <Text style = {styles.mealItemText}>Calories: {meal.calories}</Text>
-                            <Text style = {styles.mealItemText}>Proteins: {meal.proteins}</Text>
-                            <Text style = {styles.mealItemText}>Carbohydrates: {meal.carbohydrates}</Text>
-                            <Text style = {styles.mealItemText}>Fats: {meal.fats}</Text>
-                        </View>
+                    {meals.map((mealObject:any) =>(
+                        <MealBox meal = {mealObject} key = {mealObject.id}/>
                     ))}
                 </View>
 
@@ -101,8 +98,9 @@ const styles = StyleSheet.create({
         fontFamily: "Inter-Regular",
         flex: 1,
         backgroundColor: "#131a24",
-        paddingTop: 50,
+        paddingTop: 40,
         padding: 20,
+
     },
     titleContainer: {
         flex: 1/6
@@ -125,45 +123,27 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "#ffffff"
     },
-    subtitle: {
-        fontSize: 20,
-        fontFamily: "Inter-Bold",
-        fontWeight: "bold",
-        color: "#ffffff",
-        paddingBottom: 10,
-    },
-    titleCaloriesBox: {
-        fontSize: 15,
-        fontFamily: "Inter-Regular",
-        fontWeight: "bold",
-        color: "#ffffff",
-    },
-    caloriesValueText: {
-        fontSize: 18,
-        fontFamily: "Inter-Regular",
-
-        color: "#ffffff",
-        padding: 10
-    },
-    activityTitleBox: {
-        flex: 1/2,
-        flexDirection: 'row',
-        padding: 10
-    },
     mealContainer: {
         flex: 1,
+        flexDirection: "row",
         backgroundColor: "#1c2631",
         borderRadius: 15,
+        padding: 10,
+        marginBottom: 10
     },
     mealItemText: {
         fontSize: 15,
         fontFamily: "Inter-Regular",
-        fontWeight: "bold",
         color: "#ffffff",
     },
     mealImage: {
-
         width: 100,
         height: 100,
+    },
+    mealTextContainer: {
+        flex: 1,
+        flexDirection: "column",
+        padding: 20
+
     }
 })
