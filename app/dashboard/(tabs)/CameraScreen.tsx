@@ -5,6 +5,7 @@ import {getDownloadURL, ref, uploadBytes} from "@firebase/storage";
 import {auth, firestore, storage} from "@/firebase/config"
 import {addDoc, collection, doc} from "@firebase/firestore";
 import {getCurrentDate, getCurrentTime} from "@/hooks/getCurrentDate";
+import getInfo from "@/constants/getNutritionInfo";
 import {FontAwesome5} from "@expo/vector-icons";
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
@@ -59,28 +60,26 @@ export default function CameraScreen() {
         }
     }
     const addNewMeal = () => {
-        takePicture();
-        const imageURL = uploadImage(imageUri).then(image => {
-            addMealInDatabase("seb@gmail.com", {imageURL: image, date: getCurrentDate()});
-        })
 
+        takePicture();
+
+        const imageURL = uploadImage(imageUri).then(async image => {
+            console.log('test')
+            const infoJSONObject = await getInfo(image);
+            addMealInDatabase(`${auth.currentUser?.email}`, {
+                imageURL: image,
+                date: getCurrentDate(),
+                time: getCurrentTime(),
+                calories: infoJSONObject.calories,
+                proteins: infoJSONObject.proteins,
+                carbohydrates: infoJSONObject.carbohydrates,
+                fats: infoJSONObject.fats,
+
+            });
+            alert("Meal added successfully!")
+        })
     }
 
-    // const responseJSON = JSON.dummyfunction(getNutritionInfo(imageURL));
-    // if the image is not accurate
-    // alert("Not a good image")
-    // else
-    // return to HomeScreen the object
-    /*
-    {
-        "calories" : 1000,
-        "proteins" : 100,
-        "carbohydrates" : 200,
-        "fats" : 30,
-
-     */
-
-    //testButton();
     return (
         <View style = {styles.container} >
             <CameraView style={styles.camera} facing={facing} ref = {referenceToImage}>

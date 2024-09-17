@@ -16,7 +16,7 @@ export default function HomeScreen() {
 
     // test button to try the openai api
     const testButton = () => {
-        getInfo();
+        //
     }
     // TO-DO
     // Render the recent meals

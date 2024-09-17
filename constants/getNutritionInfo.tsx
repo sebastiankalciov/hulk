@@ -1,8 +1,11 @@
 import {test} from "./getCredentials"
 import {OPENAI_API_KEY} from "./getCredentials"
-export default function getInfo() {
-    console.log(test);
-
+export default function getInfo(imageURL: string | undefined) {
+    if (imageURL === undefined) return;
+    const info = "{\"calories\": 1000, \"proteins\": 234, \"carbohydrates\": 200, \"fats\": 30}";
+    const infoJSONObject = JSON.parse(info);
+    console.log(infoJSONObject);
+    return infoJSONObject;
 }
 
 /*
