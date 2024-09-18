@@ -1,5 +1,5 @@
 import {Button, View, Text, StyleSheet, Pressable} from "react-native";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {getDownloadURL, ref, uploadBytes} from "@firebase/storage";
 import {auth, firestore, storage} from "@/firebase/config"
@@ -7,6 +7,9 @@ import {addDoc, collection, doc} from "@firebase/firestore";
 import {getCurrentDate, getCurrentTime} from "@/hooks/getCurrentDate";
 import getInfo from "@/constants/getNutritionInfo";
 import {FontAwesome5} from "@expo/vector-icons";
+import {takePicture} from "@/constants/takePicture";
+import {fetchFirestoreImageURL} from "@/constants/fetchFirestoreImageURL";
+import {addMealInDatabase} from "@/constants/addMealInDatabase";
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
@@ -25,45 +28,12 @@ export default function CameraScreen() {
         )
     }
 
-    const takePicture = async () => {
-        // @ts-ignore
-        const photo = await referenceToImage.current.takePictureAsync();
-        setImageUri(photo.uri);
-    }
 
-    const uploadImage = async (imageURI: any) => {
-        try {
-            const response = await fetch(imageURI);
-            const blob = await response.blob();
+    const updateMeal = async () => {
 
-            const referenceToImage = ref(storage,  `users/${auth.currentUser?.email}/meals/1/image.jpg`);
-
-            const result = await uploadBytes(referenceToImage, blob);
-            const url = await getDownloadURL(result.ref);
-            console.log(url);
-            return url;
-
-        } catch (error) {
-            console.log("eroare la upload image: ", error);
-        }
-    }
-
-    const addMealInDatabase = async (email: string, meal: any)  => {
-        try {
-            const userReference = doc(firestore, "users", email);
-            const mealsCollection = collection(userReference, "meals");
-
-            await addDoc(mealsCollection, meal);
-            console.log("masa adaugata cu succes esti top")
-        } catch(error) {
-            console.log("eroare cand adaugi masa: ", error)
-        }
-    }
-    const addNewMeal = async () => {
-
-        await takePicture().then(r =>
-            uploadImage(imageUri).then(async image => {
-                console.log('test')
+        await takePicture({referenceToImage, setImageUri}).then(r =>
+            fetchFirestoreImageURL(`${auth.currentUser?.email}`, imageUri).then(async image => {
+                if (imageUri === null) return;
                 const infoJSONObject = await getInfo(image);
                 addMealInDatabase(`${auth.currentUser?.email}`, {
                     imageURL: image,
@@ -85,7 +55,7 @@ export default function CameraScreen() {
         <View style = {styles.container} >
             <CameraView style={styles.camera} facing={facing} ref = {referenceToImage}>
                 <View style={styles.buttonContainer}>
-                    <Pressable style = {styles.takePictureButton} onPress={addNewMeal}>
+                    <Pressable style = {styles.takePictureButton} onPress={updateMeal}>
                         <FontAwesome5 name="circle" size={70} color="#ffffff" />
                     </Pressable>
                 </View>

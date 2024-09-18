@@ -1,22 +1,25 @@
-import {
-    Button,
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    ActivityIndicator,
-    FlatList,
-    ScrollView,
-    Image, Pressable
-} from "react-native";
+import {View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl,} from "react-native";
 import * as Font from "expo-font";
-import {collection, doc, getDocs} from "@firebase/firestore";
-import {auth, firestore} from "@/firebase/config"
-import {useEffect, useState} from "react";
-import {AntDesign, Feather, FontAwesome, FontAwesome5} from "@expo/vector-icons";
+import {auth} from "@/firebase/config"
+import React, {useEffect, useState} from "react";
 import MealBox from "@/components/MealBox";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import {fetchMeals} from "@/constants/fetchMeals";
 
 export default function MealsScreen() {
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            if (auth.currentUser?.email) {
+                fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+            }
+            setRefreshing(false);
+        }, 2000);
+    }, []);
+
     const [meals, setMeals] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -30,25 +33,10 @@ export default function MealsScreen() {
         return <View/>
     }
 
-    const fetchMeals = async () => {
-        try {
-            const userReference = doc(firestore, "users", `${auth.currentUser?.email}`);
-
-            const mealsCollection = collection(userReference, "meals");
-            const querySnapshot = await getDocs(mealsCollection);
-
-            const meals = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-            // @ts-ignore
-            setMeals(meals);
-        } catch (error) {
-            console.log("problema la fetchMeals: ", error);
-        } finally {
-            setLoading(false);
-        }
-    }
-
     useEffect(() => {
-        fetchMeals();
+        if (auth.currentUser?.email) {
+            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+        }
     }, []);
 
     if (loading) {
@@ -69,15 +57,16 @@ export default function MealsScreen() {
                 <View style={styles.titleContainer}>
                     <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
                     <Text style = {styles.title}>Recent meals</Text>
-                    <Text>(sum icon do be added for no meals)</Text>
+                    <MaterialIcons name="sentiment-dissatisfied" size={24} color="white" />
                 </View>
             </View>
         )
     }
 
-
     return (
-        <ScrollView style = {styles.container} >
+        <ScrollView style = {styles.container} refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
             <View style={styles.titleContainer}>
                 <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
                 <Text style = {styles.title}>Recent meals</Text>
@@ -86,9 +75,7 @@ export default function MealsScreen() {
                         <MealBox meal = {mealObject} key = {mealObject.id}/>
                     ))}
                 </View>
-
             </View>
-
         </ScrollView>
     )
 }
@@ -100,18 +87,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#131a24",
         paddingTop: 40,
         padding: 20,
-
     },
     titleContainer: {
         flex: 1/6
-    },
-    activityContainer: {
-        flex: 1/2,
-    },
-    activityInsideContainer: {
-        flex: 1/2,
-        backgroundColor: "#212b39",
-        borderRadius: 15,
     },
     todayDate: {
         fontSize: 15,
@@ -122,28 +100,5 @@ const styles = StyleSheet.create({
         fontFamily: "Inter-ExtraBold",
         fontWeight: "bold",
         color: "#ffffff"
-    },
-    mealContainer: {
-        flex: 1,
-        flexDirection: "row",
-        backgroundColor: "#1c2631",
-        borderRadius: 15,
-        padding: 10,
-        marginBottom: 10
-    },
-    mealItemText: {
-        fontSize: 15,
-        fontFamily: "Inter-Regular",
-        color: "#ffffff",
-    },
-    mealImage: {
-        width: 100,
-        height: 100,
-    },
-    mealTextContainer: {
-        flex: 1,
-        flexDirection: "column",
-        padding: 20
-
     }
 })
