@@ -1,6 +1,5 @@
-import {Button, View, Text, StyleSheet, SafeAreaView} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import * as Font from "expo-font";
-import getInfo from "@/constants/getNutritionInfo"
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 export default function HomeScreen() {
 
@@ -14,31 +13,26 @@ export default function HomeScreen() {
         return <View/>
     }
 
-    // test button to try the openai api
-    const testButton = () => {
-        //
-    }
-    // TO-DO
-    // Render the recent meals
-    // Add statistics (if possible)
-
     return (
         <View style = {styles.container} >
             <View style={styles.titleContainer}>
                 <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
                 <Text style = {styles.title}>Dashboard</Text>
             </View>
+
             <View style = {styles.activityContainer}>
                 <Text style = {styles.subtitle}>Today's activity</Text>
+
                 <View style = {styles.activityInsideContainer}>
+
                     <View style = {styles.activityTitleBox}>
                         <MaterialCommunityIcons name="food" size={24} color="#f0cd53" />
                         <Text style = {styles.titleCaloriesBox}> Calories </Text>
                     </View>
+
                     <Text style = {styles.caloriesValueText}>
                         <Text style = {{fontWeight: "bold", fontSize: 20}}>2018</Text> kcal (dummy text)
                     </Text>
-                    <Button title={"test"} onPress={testButton}/>
                 </View>
             </View>
         </View>
@@ -90,7 +84,6 @@ const styles = StyleSheet.create({
     caloriesValueText: {
         fontSize: 18,
         fontFamily: "Inter-Regular",
-
         color: "#ffffff",
         padding: 10
     },

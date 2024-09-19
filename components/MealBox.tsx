@@ -17,21 +17,21 @@ const MealBox = ({meal}) =>{
                     Proteins
                 </Text>
                 <Text style = {styles.mealItemText}>
-                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.proteins}</Text> g
+                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.proteins}</Text>
                 </Text>
 
                 <Text style = {styles.mealItemText}>
                     Carbohydrates
                 </Text>
                 <Text style = {styles.mealItemText}>
-                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.carbohydrates}</Text> g
+                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.carbohydrates}</Text>
                 </Text>
 
                 <Text style = {styles.mealItemText}>
                     Fats
                 </Text>
                 <Text style = {styles.mealItemText}>
-                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.fats}</Text> g
+                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.fats}</Text>
                 </Text>
             </View>
         </View>

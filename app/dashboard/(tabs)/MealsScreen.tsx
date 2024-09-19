@@ -45,7 +45,7 @@ export default function MealsScreen() {
                 <View style={styles.titleContainer}>
                     <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
                     <Text style = {styles.title}>Recent meals</Text>
-                    <ActivityIndicator size="large" color="#0000ff" />
+                    <ActivityIndicator size="large" color="#ffffff" />
                 </View>
             </View>
         )

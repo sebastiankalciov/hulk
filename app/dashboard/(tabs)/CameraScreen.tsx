@@ -1,11 +1,11 @@
-import {Button, View, Text, StyleSheet, Pressable} from "react-native";
+import {Button, View, Text, StyleSheet, Pressable, Alert} from "react-native";
 import {useEffect, useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {getDownloadURL, ref, uploadBytes} from "@firebase/storage";
 import {auth, firestore, storage} from "@/firebase/config"
 import {addDoc, collection, doc} from "@firebase/firestore";
 import {getCurrentDate, getCurrentTime} from "@/hooks/getCurrentDate";
-import getInfo from "@/constants/getNutritionInfo";
+import {getInfo} from "@/constants/getNutritionInfo";
 import {FontAwesome5} from "@expo/vector-icons";
 import {takePicture} from "@/constants/takePicture";
 import {fetchFirestoreImageURL} from "@/constants/fetchFirestoreImageURL";
@@ -33,8 +33,13 @@ export default function CameraScreen() {
 
         await takePicture({referenceToImage, setImageUri}).then(r =>
             fetchFirestoreImageURL(`${auth.currentUser?.email}`, imageUri).then(async image => {
+
                 if (imageUri === null) return;
                 const infoJSONObject = await getInfo(image);
+                if (infoJSONObject === null) return (
+                    Alert.alert("Image unclear", "Make sure the image is of a meal and it is clear.")
+                );
+
                 addMealInDatabase(`${auth.currentUser?.email}`, {
                     imageURL: image,
                     date: getCurrentDate(),
@@ -45,7 +50,8 @@ export default function CameraScreen() {
                     fats: infoJSONObject.fats,
 
                 });
-                alert("Meal added successfully!")
+
+                Alert.alert("Meal", "Meal added successfully!");
             })
         );
 
@@ -60,7 +66,6 @@ export default function CameraScreen() {
                     </Pressable>
                 </View>
             </CameraView>
-
         </View>
     )
 }

@@ -1,11 +1,21 @@
-import {Button, View, Text, StyleSheet, SafeAreaView, Pressable} from "react-native";
+import {Alert, View, Text, StyleSheet, SafeAreaView, Pressable} from "react-native";
 import {signOut} from "@firebase/auth";
 import {auth} from "@/firebase/config";
 import {FontAwesome5} from "@expo/vector-icons";
 export default function ProfileScreen() {
 
     const logOut = () => {
-        signOut(auth);
+        Alert.alert('Log out', "Are you sure you want to log out?", [
+            {
+                text: "Log out",
+                onPress: () => signOut(auth),
+            },
+            {
+                text: "Cancel",
+                onPress: () => console.log("n-a vrut sa iasa afar"),
+                style: 'cancel'
+            }
+        ])
     }
 
     return (
