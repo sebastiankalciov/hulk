@@ -1,6 +1,6 @@
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, Pressable} from "react-native";
 import * as Font from "expo-font";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
 export default function HomeScreen() {
 
     const [fontsLoaded] = Font.useFonts({
@@ -34,6 +34,20 @@ export default function HomeScreen() {
                         <Text style = {{fontWeight: "bold", fontSize: 20}}>2018</Text> kcal (dummy text)
                     </Text>
                 </View>
+
+                <View style = {styles.activityInsideContainer}>
+
+                    <View style = {styles.activityTitleBox}>
+                        <MaterialCommunityIcons name="food" size={24} color="#f0cd53" />
+                        <Text style = {styles.titleCaloriesBox}> Macro nutrients </Text>
+                    </View>
+
+
+                    <Text style = {styles.caloriesValueText}>
+                        <Text style = {{fontSize: 18, color: "white"}}>See here</Text>
+                        <AntDesign name="rightcircleo" size={18} color="white"/>
+                    </Text>
+                </View>
             </View>
         </View>
     )
@@ -52,11 +66,13 @@ const styles = StyleSheet.create({
     },
     activityContainer: {
         flex: 1/2,
+
     },
     activityInsideContainer: {
         flex: 1/2,
         backgroundColor: "#212b39",
         borderRadius: 15,
+        marginBottom: 10
     },
     todayDate: {
         fontSize: 15,
