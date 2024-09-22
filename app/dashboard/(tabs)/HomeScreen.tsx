@@ -9,18 +9,7 @@ import React, {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
 import {fetchMeals} from "@/constants/fetchMeals";
 import KLoadingIcon from "@/components/KLoadingIcon";
-const screenWidth = Dimensions.get("window").width;
-
-const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2,
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false
-};
+import KPieChart from "@/components/KPieChart";
 
 interface Stats {
     calories: number;
@@ -78,36 +67,13 @@ export default function HomeScreen() {
         return <KLoadingIcon/>
     }
 
-    const pieChartData = [
-        {
-            name: "Proteins",
-            quantity: stats.proteins,
-            color: "rgb(190,72,72)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        },
-        {
-            name: "Carbohydrates",
-            quantity: stats.carbohydrates,
-            color: "rgb(210,164,131)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        },
-        {
-            name: "Fats",
-            quantity: stats.fats,
-            color: "rgb(229,206,106)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        }
-    ];
-
-    const macros = stats.proteins + stats.carbohydrates + stats.fats;
+    
+    const macros: number = stats.proteins + stats.carbohydrates + stats.fats;
 
     return (
-        <ScrollView style = {styles.container} refreshControl={
+        <ScrollView contentContainerStyle = {styles.container} refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
-        }>
+        } scrollEnabled={false}>
 
             <View style={styles.titleContainer}>
                 <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
@@ -146,15 +112,8 @@ export default function HomeScreen() {
                         <Text style = {{fontWeight: "bold", fontSize: 20, color: "white"}}>{macros} g</Text>
                     </Text>
                 </View>
-                <PieChart
-                    data={pieChartData}
-                    width={screenWidth}
-                    height={120}
-                    chartConfig={chartConfig}
-                    accessor={"quantity"}
-                    backgroundColor={"transparent"}
-                    paddingLeft={"-42"}
-                />
+
+                <KPieChart proteins={stats.proteins} carbohydrates={stats.carbohydrates} fats={stats.fats}/>
             </View>
         </ScrollView>
     )
@@ -169,10 +128,10 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     titleContainer: {
-        flex: 1/6
+        flex: 1/4
     },
     activityContainer: {
-        flex: 1/1.5,
+        flex: 1
 
     },
     activityInsideContainer: {

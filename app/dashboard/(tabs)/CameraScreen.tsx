@@ -1,9 +1,7 @@
 import {Button, View, Text, StyleSheet, Pressable, Alert} from "react-native";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
-import {getDownloadURL, ref, uploadBytes} from "@firebase/storage";
-import {auth, firestore, storage} from "@/firebase/config"
-import {addDoc, collection, doc} from "@firebase/firestore";
+import {auth} from "@/firebase/config"
 import {getCurrentDate, getCurrentTime} from "@/hooks/getCurrentDate";
 import {getInfo} from "@/constants/getNutritionInfo";
 import {FontAwesome5} from "@expo/vector-icons";
@@ -27,7 +25,6 @@ export default function CameraScreen() {
             </View>
         )
     }
-
 
     const updateMeal = async () => {
 
