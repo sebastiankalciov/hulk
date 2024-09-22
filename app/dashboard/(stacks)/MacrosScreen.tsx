@@ -2,7 +2,36 @@ import {View, Text, StyleSheet, Pressable} from "react-native";
 import * as Font from "expo-font";
 import {AntDesign, Feather, MaterialCommunityIcons} from "@expo/vector-icons";
 import {Link} from "expo-router";
+import {useEffect, useState} from "react";
+import {auth} from "@/firebase/config";
+import {fetchMeals} from "@/constants/fetchMeals";
+import {getTodayStats} from "@/constants/getTodayStats";
+
+interface Stats {
+    calories: number;
+    proteins: number;
+    carbohydrates: number;
+    fats: number;
+}
 export default function HomeScreen() {
+
+    const [stats, setStats] = useState<Stats>({
+        calories: 0,
+        proteins: 0,
+        carbohydrates: 0,
+        fats: 0,
+    });
+
+    const [meals, setMeals] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (auth.currentUser?.email) {
+            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+        }
+        // @ts-ignore
+        getTodayStats(setStats, meals);
+    }, []);
 
     const [fontsLoaded] = Font.useFonts({
         'Inter-Bold': require('@/assets/fonts/Inter/static/Inter-Bold.ttf'),
@@ -13,8 +42,7 @@ export default function HomeScreen() {
     if (!fontsLoaded) {
         return <View/>
     }
-
-
+    
     return (
         <View style = {styles.container} >
             <Link href="../(tabs)/HomeScreen">
@@ -25,6 +53,30 @@ export default function HomeScreen() {
                 <Text style = {styles.title}>Macronutrients</Text>
             </View>
 
+
+            <View>
+                <Text style = {styles.titleCaloriesBox}> Proteins </Text>
+
+                <Text style = {styles.caloriesValueText}>
+                    <Text style = {{fontWeight: "bold", fontSize: 20}}>{stats.proteins} g</Text>
+                </Text>
+            </View>
+
+            <View>
+                <Text style = {styles.titleCaloriesBox}> Carbohydrates </Text>
+
+                <Text style = {styles.caloriesValueText}>
+                    <Text style = {{fontWeight: "bold", fontSize: 20}}>{stats.carbohydrates} g</Text>
+                </Text>
+            </View>
+
+            <View>
+                <Text style = {styles.titleCaloriesBox}> Fats </Text>
+
+                <Text style = {styles.caloriesValueText}>
+                    <Text style = {{fontWeight: "bold", fontSize: 20}}>{stats.fats} g</Text>
+                </Text>
+            </View>
         </View>
     )
 }
@@ -68,7 +120,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     titleCaloriesBox: {
-        fontSize: 15,
+        fontSize: 25,
         fontFamily: "Inter-Regular",
         fontWeight: "bold",
         color: "#ffffff",

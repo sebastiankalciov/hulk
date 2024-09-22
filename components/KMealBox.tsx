@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, View} from "react-native";
 
 // @ts-ignore
-const MealBox = ({meal}) =>{
+const KMealBox = ({meal}) =>{
     return (
         <View key = {meal.id} style = {styles.mealContainer}>
             <Image style = {styles.mealImage} source={{uri: meal.imageURL}}/>
@@ -38,7 +38,7 @@ const MealBox = ({meal}) =>{
     )
 }
 
-export default MealBox;
+export default KMealBox;
 
 const styles = StyleSheet.create({
     container: {

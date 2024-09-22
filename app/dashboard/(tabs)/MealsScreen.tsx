@@ -2,12 +2,15 @@ import {View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl,} 
 import * as Font from "expo-font";
 import {auth} from "@/firebase/config"
 import React, {useEffect, useState} from "react";
-import MealBox from "@/components/MealBox";
+import KMealBox from "@/components/KMealBox";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {fetchMeals} from "@/constants/fetchMeals";
+import KLoadingIcon from "@/components/KLoadingIcon";
 
 export default function MealsScreen() {
 
+    const [meals, setMeals] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = React.useState(false);
 
     const onRefresh = React.useCallback(() => {
@@ -20,8 +23,11 @@ export default function MealsScreen() {
         }, 2000);
     }, []);
 
-    const [meals, setMeals] = useState([]);
-    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        if (auth.currentUser?.email) {
+            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+        }
+    }, []);
 
     const [fontsLoaded] = Font.useFonts({
         'Inter-Bold': require('@/assets/fonts/Inter/static/Inter-Bold.ttf'),
@@ -33,22 +39,8 @@ export default function MealsScreen() {
         return <View/>
     }
 
-    useEffect(() => {
-        if (auth.currentUser?.email) {
-            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
-        }
-    }, []);
-
     if (loading) {
-        return (
-            <View style = {styles.container} >
-                <View style={styles.titleContainer}>
-                    <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
-                    <Text style = {styles.title}>Recent meals</Text>
-                    <ActivityIndicator size="large" color="#ffffff" />
-                </View>
-            </View>
-        )
+        return <KLoadingIcon/>
     }
 
     if (meals.length === 0) {
@@ -72,7 +64,7 @@ export default function MealsScreen() {
                 <Text style = {styles.title}>Recent meals</Text>
                 <View>
                     {meals.map((mealObject:any) =>(
-                        <MealBox meal = {mealObject} key = {mealObject.id}/>
+                        <KMealBox meal = {mealObject} key = {mealObject.id}/>
                     ))}
                 </View>
             </View>
