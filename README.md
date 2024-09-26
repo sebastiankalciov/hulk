@@ -1,9 +1,9 @@
 # Hulk - Calorie Tracker
-**Hulk** is an easy-to-use mobile application made with React Native that uses Artificial Intelligence for tracking the calories of your meals
+**Hulk** is an easy-to-use mobile application made with React Native for tracking the calories of your meals
 
 ## Status
 
-- [ ] Display on home screen the calorie/protein/carb/fat intake for the current day
+- [x] Display on home screen the calorie/protein/carb/fat intake for the current day
 - [ ] Add statistics
 - [ ] Figure out what to add on the profile screen
 
