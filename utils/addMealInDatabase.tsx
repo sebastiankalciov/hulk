@@ -7,7 +7,7 @@ export const addMealInDatabase = async (email: string, meal: any) => {
         const mealsCollection = collection(userReference, "meals");
 
         await addDoc(mealsCollection, meal);
-        console.log("masa adaugata cu succes esti top")
+        console.log("masa adaugata cu succes")
     } catch(error) {
         console.log("eroare cand adaugi masa: ", error)
     }

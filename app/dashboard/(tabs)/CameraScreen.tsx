@@ -2,12 +2,12 @@ import {Button, View, Text, StyleSheet, Pressable, Alert} from "react-native";
 import {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {auth} from "@/firebase/config"
-import {getCurrentDate, getCurrentTime} from "@/hooks/getCurrentDate";
-import {getInfo} from "@/constants/getNutritionInfo";
+import {getCurrentDate, getCurrentTime} from "@/utils/getCurrentDate";
+import {getInfo} from "@/utils/getNutritionInfo";
 import {FontAwesome5} from "@expo/vector-icons";
-import {takePicture} from "@/constants/takePicture";
-import {fetchFirestoreImageURL} from "@/constants/fetchFirestoreImageURL";
-import {addMealInDatabase} from "@/constants/addMealInDatabase";
+import {takePicture} from "@/utils/takePicture";
+import {fetchFirestoreImageURL} from "@/utils/fetchFirestoreImageURL";
+import {addMealInDatabase} from "@/utils/addMealInDatabase";
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();

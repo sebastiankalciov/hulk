@@ -1,4 +1,4 @@
-import {Alert, View, Text, StyleSheet, SafeAreaView, Pressable} from "react-native";
+import {Alert, View, Text, StyleSheet, Pressable} from "react-native";
 import {signOut} from "@firebase/auth";
 import {auth} from "@/firebase/config";
 import {FontAwesome5} from "@expo/vector-icons";

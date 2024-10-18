@@ -4,8 +4,8 @@ import {AntDesign, Feather, MaterialCommunityIcons} from "@expo/vector-icons";
 import {Link} from "expo-router";
 import {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
-import {fetchMeals} from "@/constants/fetchMeals";
-import {getTodayStats} from "@/constants/getTodayStats";
+import {fetchMeals} from "@/utils/fetchMeals";
+import {getTodayStats} from "@/utils/getTodayStats";
 
 interface Stats {
     calories: number;

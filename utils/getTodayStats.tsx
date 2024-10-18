@@ -1,15 +1,17 @@
-import {getCurrentDate} from "@/hooks/getCurrentDate";
+import {getCurrentDate} from "@/utils/getCurrentDate";
 
-/**
- * # Fetch today stats (calories, proteins, carbs and fats)
- *
- */
+
 interface Stats {
     calories: number;
     proteins: number;
     carbohydrates: number;
     fats: number;
 }
+
+/**
+ * # Fetch today stats (calories, proteins, carbs and fats)
+ *
+ */
 export const getTodayStats = async (setStats: React.Dispatch<React.SetStateAction<Stats>>, meals: any[])=> {
 
     let calories: number = 0,

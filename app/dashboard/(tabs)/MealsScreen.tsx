@@ -4,7 +4,7 @@ import {auth} from "@/firebase/config"
 import React, {useEffect, useState} from "react";
 import KMealBox from "@/components/KMealBox";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import {fetchMeals} from "@/constants/fetchMeals";
+import {fetchMeals} from "@/utils/fetchMeals";
 import KLoadingIcon from "@/components/KLoadingIcon";
 
 export default function MealsScreen() {

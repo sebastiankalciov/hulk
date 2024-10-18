@@ -2,12 +2,10 @@ import {View, Text, StyleSheet, Pressable, RefreshControl, ScrollView} from "rea
 import * as Font from "expo-font";
 import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
 import {Link} from "expo-router";
-import {PieChart} from "react-native-chart-kit";
-import { Dimensions } from "react-native";
-import {getTodayStats} from "@/constants/getTodayStats";
+import {getTodayStats} from "@/utils/getTodayStats";
 import React, {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
-import {fetchMeals} from "@/constants/fetchMeals";
+import {fetchMeals} from "@/utils/fetchMeals";
 import KLoadingIcon from "@/components/KLoadingIcon";
 import KPieChart from "@/components/KPieChart";
 

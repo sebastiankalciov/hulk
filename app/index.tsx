@@ -11,7 +11,7 @@ import {
 import {useState} from "react";
 import {FirebaseError} from "@firebase/util";
 import {auth} from "@/firebase/config";
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "@firebase/auth";
+import {signInWithEmailAndPassword} from "@firebase/auth";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as Font from "expo-font";
 import {Link} from "expo-router";
