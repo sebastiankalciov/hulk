@@ -2,12 +2,12 @@ import {Button, View, Text, StyleSheet, Pressable, Alert} from "react-native";
 import {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {auth} from "@/firebase/config"
-import {getCurrentDate, getCurrentTime} from "@/utils/getCurrentDate";
+import {getFormattedCurrentDate, getCurrentTime} from "@/utils/getFormattedCurrentDate";
 import {getInfo} from "@/utils/getNutritionInfo";
 import {FontAwesome5} from "@expo/vector-icons";
-import {takePicture} from "@/utils/takePicture";
-import {fetchFirestoreImageURL} from "@/utils/fetchFirestoreImageURL";
-import {addMealInDatabase} from "@/utils/addMealInDatabase";
+import {capturePicture} from "@/utils/capturePicture";
+import {getFirestoreImageURL} from "@/utils/getFirestoreImageURL";
+import {addMealToDatabase} from "@/utils/addMealToDatabase";
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
@@ -28,8 +28,8 @@ export default function CameraScreen() {
 
     const updateMeal = async () => {
 
-        await takePicture({referenceToImage, setImageUri}).then(r =>
-            fetchFirestoreImageURL(`${auth.currentUser?.email}`, imageUri).then(async image => {
+        await capturePicture({referenceToImage, setImageUri}).then(r =>
+            getFirestoreImageURL(`${auth.currentUser?.email}`, imageUri).then(async image => {
 
                 if (imageUri === null) return;
                 const infoJSONObject = await getInfo(image);
@@ -37,9 +37,9 @@ export default function CameraScreen() {
                     Alert.alert("Image unclear", "Make sure the image is of a meal and it is clear.")
                 );
 
-                addMealInDatabase(`${auth.currentUser?.email}`, {
+                addMealToDatabase(`${auth.currentUser?.email}`, {
                     imageURL: image,
-                    date: getCurrentDate(),
+                    date: getFormattedCurrentDate(),
                     time: getCurrentTime(),
                     calories: infoJSONObject.calories,
                     proteins: infoJSONObject.proteins,

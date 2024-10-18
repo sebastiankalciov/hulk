@@ -1,7 +1,7 @@
 import {addDoc, collection, doc} from "@firebase/firestore";
 import {firestore} from "@/firebase/config";
 
-export const addMealInDatabase = async (email: string, meal: any) => {
+export const addMealToDatabase = async (email: string, meal: any) => {
     try {
         const userReference = doc(firestore, "users", email);
         const mealsCollection = collection(userReference, "meals");

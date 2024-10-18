@@ -1,4 +1,4 @@
-import {getCurrentDate} from "@/utils/getCurrentDate";
+import {getFormattedCurrentDate} from "@/utils/getFormattedCurrentDate";
 
 
 interface Stats {
@@ -21,7 +21,7 @@ export const getTodayStats = async (setStats: React.Dispatch<React.SetStateActio
 
     try {
         meals.map((mealObject: any) => {
-            if (mealObject.date == getCurrentDate()) {
+            if (mealObject.date == getFormattedCurrentDate()) {
                 calories += Number(mealObject.calories)
                 proteins += Number(mealObject.proteins);
                 carbohydrates += Number(mealObject.carbohydrates);

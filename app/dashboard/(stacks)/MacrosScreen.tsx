@@ -4,7 +4,7 @@ import {AntDesign, Feather, MaterialCommunityIcons} from "@expo/vector-icons";
 import {Link} from "expo-router";
 import {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
-import {fetchMeals} from "@/utils/fetchMeals";
+import {getMeals} from "@/utils/getMeals";
 import {getTodayStats} from "@/utils/getTodayStats";
 
 interface Stats {
@@ -27,7 +27,7 @@ export default function HomeScreen() {
 
     useEffect(() => {
         if (auth.currentUser?.email) {
-            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+            getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
         // @ts-ignore
         getTodayStats(setStats, meals);

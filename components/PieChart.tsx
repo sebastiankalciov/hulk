@@ -7,7 +7,7 @@ interface Stats {
     carbohydrates: number;
     fats: number;
 }
-const KPieChart = (stats: Stats) => {
+const PieChart = (stats: Stats) => {
 
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -58,4 +58,4 @@ const KPieChart = (stats: Stats) => {
     )
 }
 
-export default KPieChart;
+export default PieChart;

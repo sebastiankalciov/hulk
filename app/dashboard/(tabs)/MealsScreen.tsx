@@ -2,10 +2,10 @@ import {View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl,} 
 import * as Font from "expo-font";
 import {auth} from "@/firebase/config"
 import React, {useEffect, useState} from "react";
-import KMealBox from "@/components/KMealBox";
+import MealBox from "@/components/MealBox";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import {fetchMeals} from "@/utils/fetchMeals";
-import KLoadingIcon from "@/components/KLoadingIcon";
+import {getMeals} from "@/utils/getMeals";
+import LoadingIcon from "@/components/LoadingIcon";
 
 export default function MealsScreen() {
 
@@ -17,7 +17,7 @@ export default function MealsScreen() {
         setRefreshing(true);
         setTimeout(() => {
             if (auth.currentUser?.email) {
-                fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+                getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
             }
             setRefreshing(false);
         }, 2000);
@@ -25,7 +25,7 @@ export default function MealsScreen() {
 
     useEffect(() => {
         if (auth.currentUser?.email) {
-            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+            getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
     }, []);
 
@@ -40,7 +40,7 @@ export default function MealsScreen() {
     }
 
     if (loading) {
-        return <KLoadingIcon/>
+        return <LoadingIcon/>
     }
 
     if (meals.length === 0) {
@@ -64,7 +64,7 @@ export default function MealsScreen() {
                 <Text style = {styles.title}>Recent meals</Text>
                 <View>
                     {meals.map((mealObject:any) =>(
-                        <KMealBox meal = {mealObject} key = {mealObject.id}/>
+                        <MealBox meal = {mealObject} key = {mealObject.id}/>
                     ))}
                 </View>
             </View>

@@ -10,7 +10,7 @@ type FetchMealsProps = {
     setMeals: React.Dispatch<React.SetStateAction<never[]>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export const fetchMeals = async ({userEmail, setMeals, setLoading}: FetchMealsProps) => {
+export const getMeals = async ({userEmail, setMeals, setLoading}: FetchMealsProps) => {
     try {
         const userReference = doc(firestore, "users", userEmail);
 
@@ -23,7 +23,7 @@ export const fetchMeals = async ({userEmail, setMeals, setLoading}: FetchMealsPr
         // @ts-ignore
         setMeals(meals);
     } catch (error) {
-        console.log("problema la fetchMeals: ", error);
+        console.log("problema la getMeals: ", error);
     } finally {
         setLoading(false);
     }

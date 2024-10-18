@@ -5,9 +5,9 @@ import {Link} from "expo-router";
 import {getTodayStats} from "@/utils/getTodayStats";
 import React, {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
-import {fetchMeals} from "@/utils/fetchMeals";
-import KLoadingIcon from "@/components/KLoadingIcon";
-import KPieChart from "@/components/KPieChart";
+import {getMeals} from "@/utils/getMeals";
+import LoadingIcon from "@/components/LoadingIcon";
+import PieChart from "@/components/PieChart";
 
 interface Stats {
     calories: number;
@@ -32,7 +32,7 @@ export default function HomeScreen() {
         setRefreshing(true);
         setTimeout(() => {
             if (auth.currentUser?.email) {
-                fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+                getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
             }
 
             // @ts-ignore
@@ -44,7 +44,7 @@ export default function HomeScreen() {
 
     useEffect(() => {
         if (auth.currentUser?.email) {
-            fetchMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+            getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
 
         // @ts-ignore
@@ -62,7 +62,7 @@ export default function HomeScreen() {
     }
 
     if (loading) {
-        return <KLoadingIcon/>
+        return <LoadingIcon/>
     }
 
     
@@ -111,7 +111,7 @@ export default function HomeScreen() {
                     </Text>
                 </View>
 
-                <KPieChart proteins={stats.proteins} carbohydrates={stats.carbohydrates} fats={stats.fats}/>
+                <PieChart proteins={stats.proteins} carbohydrates={stats.carbohydrates} fats={stats.fats}/>
             </View>
         </ScrollView>
     )

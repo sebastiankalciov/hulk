@@ -1,7 +1,7 @@
 import {ActivityIndicator, StyleSheet, View} from "react-native";
 import React from "react";
 
-const KLoadingIcon = () => {
+const LoadingIcon = () => {
 
     return (
         <View style = {styles.container} >
@@ -11,7 +11,7 @@ const KLoadingIcon = () => {
 
 }
 
-export default KLoadingIcon;
+export default LoadingIcon;
 
 const styles = StyleSheet.create({
     container: {

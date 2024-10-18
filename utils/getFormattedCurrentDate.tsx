@@ -1,4 +1,4 @@
-export const getCurrentDate = ()=>{
+export const getFormattedCurrentDate = ()=>{
 
     var date = new Date().toLocaleDateString();
 
