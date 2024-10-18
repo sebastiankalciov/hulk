@@ -1,20 +1,15 @@
 import {View, Text, StyleSheet, Pressable, RefreshControl, ScrollView} from "react-native";
+import React, {useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
 import {Link} from "expo-router";
-import {getTodayStats} from "@/utils/getTodayStats";
-import React, {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
+import {getTodayStats} from "@/utils/getTodayStats";
 import {getMeals} from "@/utils/getMeals";
 import LoadingIcon from "@/components/LoadingIcon";
 import PieChartGraph from "@/components/PieChartGraph";
+import {Stats} from "@/types";
 
-interface Stats {
-    calories: number;
-    proteins: number;
-    carbohydrates: number;
-    fats: number;
-}
 export default function HomeScreen() {
 
     const [stats, setStats] = useState<Stats>({
@@ -35,7 +30,6 @@ export default function HomeScreen() {
                 getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
             }
 
-            // @ts-ignore
             getTodayStats(setStats, meals);
 
             setRefreshing(false);
@@ -47,7 +41,6 @@ export default function HomeScreen() {
             getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
 
-        // @ts-ignore
         getTodayStats(setStats, meals);
     }, []);
 
@@ -65,7 +58,6 @@ export default function HomeScreen() {
         return <LoadingIcon/>
     }
 
-    
     const macros: number = stats.proteins + stats.carbohydrates + stats.fats;
 
     return (
@@ -111,7 +103,7 @@ export default function HomeScreen() {
                     </Text>
                 </View>
 
-                <PieChart proteins={stats.proteins} carbohydrates={stats.carbohydrates} fats={stats.fats}/>
+                <PieChartGraph proteins={stats.proteins} carbohydrates={stats.carbohydrates} fats={stats.fats} calories={stats.calories}/>
             </View>
         </ScrollView>
     )

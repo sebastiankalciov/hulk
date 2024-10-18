@@ -1,8 +1,12 @@
 import {Image, StyleSheet, Text, View} from "react-native";
-import {MealProps} from "@/types";
+import React from "react";
+import {MealBoxProps} from "@/types";
 
-// @ts-ignore
-const MealBox = ({meal}) => {
+interface MealProps {
+    meal: MealBoxProps;
+}
+
+const MealBox: React.FC<MealProps> = ({meal}) => {
     return (
         <View key = {meal.id} style = {styles.mealContainer}>
             <Image style = {styles.mealImage} source={{uri: meal.imageURL}}/>
