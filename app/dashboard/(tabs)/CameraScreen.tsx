@@ -8,6 +8,7 @@ import {getInfo} from "@/utils/getNutritionInfo";
 import {capturePicture} from "@/utils/capturePicture";
 import {getFirestoreImageURL} from "@/utils/getFirestoreImageURL";
 import {addMealToDatabase} from "@/utils/addMealToDatabase";
+import {styles} from "@/styles/screens/CameraScreen.styles";
 
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
@@ -55,7 +56,6 @@ export default function CameraScreen() {
                 Alert.alert("Meal", "Meal added successfully!");
             })
         );
-
     }
 
     return (
@@ -70,33 +70,3 @@ export default function CameraScreen() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        fontFamily: "Inter-Regular",
-        flex: 1,
-        backgroundColor: "#131a24",
-        paddingTop: 30,
-
-    },
-    camera: {
-        flex: 1,
-        paddingBottom: 5
-    },
-    buttonContainer: {
-        flex: 1,
-        justifyContent: "flex-end",
-        backgroundColor: 'transparent',
-
-    },
-    icon: {
-        position: "absolute",
-        color: "#f7f7f7"
-    },
-
-    takePictureButton: {
-        alignItems: "center",
-        justifyContent: "center",
-
-    },
-})

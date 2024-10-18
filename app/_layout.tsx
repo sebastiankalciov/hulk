@@ -12,8 +12,6 @@ export default function RootLayout() {
     const router = useRouter();
     const segments = useSegments();
 
-
-
     const authStateChanged = (user: User | null) => {
         console.log('authStateChanged ', user);
         setUser(user);

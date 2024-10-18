@@ -10,6 +10,7 @@ interface MealProps {
     carbohydrates: number,
     fats: number,
 }
+
 interface MealBoxProps {
     id: number,
     imageURL: string | undefined,
@@ -21,17 +22,22 @@ interface MealBoxProps {
     fats: number,
 }
 
+interface GetMealsProps {
+    userEmail: string;
+    setMeals: React.Dispatch<React.SetStateAction<never[]>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 interface CapturePictureProps {
     cameraReference: React.RefObject<CameraView>;
     setPicture: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface Stats {
+interface StatsProps {
     calories: number;
     proteins: number;
     carbohydrates: number;
     fats: number;
 }
 
-
-export {MealProps, MealBoxProps, CapturePictureProps, Stats};
+export {MealProps, MealBoxProps, GetMealsProps, CapturePictureProps, StatsProps};

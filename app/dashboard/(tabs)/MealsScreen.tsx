@@ -6,6 +6,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {getMeals} from "@/utils/getMeals";
 import LoadingIcon from "@/components/LoadingIcon";
 import MealBox from "@/components/MealBox";
+import {styles} from "@/styles/screens/MealsScreen.styles";
 
 export default function MealsScreen() {
 
@@ -71,26 +72,3 @@ export default function MealsScreen() {
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        fontFamily: "Inter-Regular",
-        flex: 1,
-        backgroundColor: "#131a24",
-        paddingTop: 40,
-        padding: 20,
-    },
-    titleContainer: {
-        flex: 1/6
-    },
-    todayDate: {
-        fontSize: 15,
-        color: "#d4d4d4"
-    },
-    title: {
-        fontSize: 30,
-        fontFamily: "Inter-ExtraBold",
-        fontWeight: "bold",
-        color: "#ffffff"
-    }
-})

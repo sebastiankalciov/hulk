@@ -15,6 +15,7 @@ import {signInWithEmailAndPassword} from "@firebase/auth";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as Font from "expo-font";
 import {Link} from "expo-router";
+import {styles} from "@/styles/screens/index.styles";
 
 export default function Index() {
 
@@ -103,96 +104,3 @@ export default function Index() {
 
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        fontFamily: "Inter-Regular",
-        flex: 1,
-        backgroundColor: "#131a24",
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 5,
-    },
-
-    inputContainer: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        borderBottomColor: "#f7f7f7",
-        borderBottomWidth: 1.5,
-        height: 50,
-        marginTop: 20,
-    },
-
-    title: {
-        fontSize: 35,
-        fontFamily: "Inter-ExtraBold",
-        textAlign: 'center',
-        color: "#f8f8f8"
-    },
-
-    subtitle: {
-        fontSize: 28,
-        fontFamily: "Inter-Bold",
-        textAlign: 'center',
-        marginBottom: 20,
-        color: "#f2f2f2"
-    },
-
-    textIntro: {
-        fontSize: 15,
-        fontFamily: "Inter-Regular",
-        textAlign: 'center',
-        marginBottom: 50,
-        margin: 10,
-        color: "#c0c0c0"
-    },
-
-    input: {
-        flex: 1,
-        paddingLeft: 30,
-        color: "#f7f7f7"
-    },
-
-    icon: {
-        position: "absolute",
-        color: "#f7f7f7"
-    },
-
-    signInButton: {
-        marginTop: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#f0cd53",
-        borderRadius: 25,
-    },
-
-    signInButtonText: {
-        color: "#191919",
-        fontFamily: "Inter-ExtraBold",
-        fontWeight: "bold",
-        fontSize: 25,
-        letterSpacing: 0.5,
-        padding: 5,
-    },
-
-    createAccountContainer: {
-        marginTop: 20,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-
-    },
-
-    createAccountText: {
-        fontSize: 14,
-        color: "#f7f7f7",
-        lineHeight: 20,
-    },
-
-    signUpText: {
-        color: '#f7f7f7',
-        fontSize: 14,
-        lineHeight: 20,
-        fontWeight: 'bold',
-    },
-})

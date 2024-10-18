@@ -8,11 +8,12 @@ import {getTodayStats} from "@/utils/getTodayStats";
 import {getMeals} from "@/utils/getMeals";
 import LoadingIcon from "@/components/LoadingIcon";
 import PieChartGraph from "@/components/PieChartGraph";
-import {Stats} from "@/types";
+import {StatsProps} from "@/types";
+import {styles} from "@/styles/screens/HomeScreen.styles";
 
 export default function HomeScreen() {
 
-    const [stats, setStats] = useState<Stats>({
+    const [stats, setStats] = useState<StatsProps>({
         calories: 0,
         proteins: 0,
         carbohydrates: 0,
@@ -108,60 +109,3 @@ export default function HomeScreen() {
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        fontFamily: "Inter-Regular",
-        flex: 1,
-        backgroundColor: "#131a24",
-        paddingTop: 50,
-        padding: 20,
-    },
-    titleContainer: {
-        flex: 1/4
-    },
-    activityContainer: {
-        flex: 1
-
-    },
-    activityInsideContainer: {
-        flex: 1/2,
-        backgroundColor: "#212b39",
-        borderRadius: 15,
-        marginBottom: 10
-    },
-    todayDate: {
-        fontSize: 15,
-        color: "#d4d4d4"
-    },
-    title: {
-        fontSize: 30,
-        fontFamily: "Inter-ExtraBold",
-        fontWeight: "bold",
-        color: "#ffffff"
-    },
-    subtitle: {
-        fontSize: 20,
-        fontFamily: "Inter-Bold",
-        fontWeight: "bold",
-        color: "#ffffff",
-        paddingBottom: 10,
-    },
-    titleCaloriesBox: {
-        fontSize: 15,
-        fontFamily: "Inter-Regular",
-        fontWeight: "bold",
-        color: "#ffffff",
-    },
-    caloriesValueText: {
-        fontSize: 24,
-        fontFamily: "Inter-Regular",
-        color: "#ffffff",
-        padding: 10
-    },
-    activityTitleBox: {
-        flex: 1,
-        flexDirection: 'row',
-        padding: 10
-    }
-})
