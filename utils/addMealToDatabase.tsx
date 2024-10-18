@@ -1,14 +1,15 @@
 import {addDoc, collection, doc} from "@firebase/firestore";
 import {firestore} from "@/firebase/config";
+import {MealProps} from "@/types";
 
-export const addMealToDatabase = async (email: string, meal: any) => {
+export const addMealToDatabase = async (email: string, meal: MealProps) => {
     try {
         const userReference = doc(firestore, "users", email);
         const mealsCollection = collection(userReference, "meals");
 
         await addDoc(mealsCollection, meal);
-        console.log("masa adaugata cu succes")
+        console.log("Meal added successfully!")
     } catch(error) {
-        console.log("eroare cand adaugi masa: ", error)
+        console.log("Error when adding meal in db: ", error)
     }
 }

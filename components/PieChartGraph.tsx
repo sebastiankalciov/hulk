@@ -1,13 +1,9 @@
 import {PieChart} from "react-native-chart-kit";
 import React from "react";
 import {Dimensions} from "react-native";
+import {Stats} from "@/types";
 
-interface Stats {
-    proteins: number;
-    carbohydrates: number;
-    fats: number;
-}
-const PieChart = (stats: Stats) => {
+const PieChartGraph = (stats: Stats) => {
 
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -19,6 +15,7 @@ const PieChart = (stats: Stats) => {
         barPercentage: 0.5,
         useShadowColorFromDataset: false
     };
+
     const pieChartData = [
         {
             name: "Proteins",
@@ -58,4 +55,4 @@ const PieChart = (stats: Stats) => {
     )
 }
 
-export default PieChart;
+export default PieChartGraph;

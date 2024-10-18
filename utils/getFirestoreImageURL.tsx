@@ -1,7 +1,7 @@
 import {getDownloadURL, ref, uploadBytes} from "@firebase/storage";
-import {auth, storage} from "@/firebase/config";
+import {storage} from "@/firebase/config";
 
-export const getFirestoreImageURL = async (userEmail: string, imageURI: any) => {
+export const getFirestoreImageURL = async (userEmail: string, imageURI: string) => {
     try {
         const response = await fetch(imageURI);
         const blob = await response.blob();
@@ -14,6 +14,6 @@ export const getFirestoreImageURL = async (userEmail: string, imageURI: any) => 
         return url;
 
     } catch (error) {
-        console.log("eroare la fetch firestore image url: ", error);
+        console.log("Error when fetching firestore image url: ", error);
     }
 }

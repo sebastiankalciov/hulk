@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 import {auth} from "@/firebase/config";
 import {getMeals} from "@/utils/getMeals";
 import LoadingIcon from "@/components/LoadingIcon";
-import PieChart from "@/components/PieChart";
+import PieChartGraph from "@/components/PieChartGraph";
 
 interface Stats {
     calories: number;

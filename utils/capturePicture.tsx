@@ -1,12 +1,12 @@
+import {CapturePictureProps} from "@/types";
 
-type TakePictureProps = {
-    referenceToImage: React.MutableRefObject<null>
-    setImageUri: React.Dispatch<React.SetStateAction<null>>;
-};
-export const capturePicture = async ({referenceToImage, setImageUri}: TakePictureProps) => {
+export const capturePicture = async ({cameraReference, setPicture}: CapturePictureProps) => {
 
-    // @ts-ignore
-    const photo = await referenceToImage.current.takePictureAsync();
-    setImageUri(photo.uri);
+    if (cameraReference) {
+
+        const picture = await cameraReference.current?.takePictureAsync();
+        setPicture(picture!.uri);
+    }
+
 
 }

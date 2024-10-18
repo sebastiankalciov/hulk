@@ -2,8 +2,8 @@ import {Alert, View, Text, StyleSheet, Pressable} from "react-native";
 import {signOut} from "@firebase/auth";
 import {auth} from "@/firebase/config";
 import {FontAwesome5} from "@expo/vector-icons";
-export default function ProfileScreen() {
 
+export default function ProfileScreen() {
     const logOut = () => {
         Alert.alert('Log out', "Are you sure you want to log out?", [
             {
@@ -12,7 +12,7 @@ export default function ProfileScreen() {
             },
             {
                 text: "Cancel",
-                onPress: () => console.log("n-a vrut sa iasa afar"),
+                onPress: () => console.log("User canceled log out"),
                 style: 'cancel'
             }
         ])
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         padding: 20,
-
         flexDirection: "row"
     },
     title: {

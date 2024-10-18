@@ -1,11 +1,7 @@
-import {collection, doc, getDocs, orderBy} from "@firebase/firestore";
-import {auth, firestore} from "@/firebase/config";
-import {query} from "@firebase/database";
+import {collection, doc, getDocs} from "@firebase/firestore";
+import {firestore} from "@/firebase/config";
 
-interface Meal {
-    id: string;
-}
-type FetchMealsProps = {
+interface FetchMealsProps {
     userEmail: string;
     setMeals: React.Dispatch<React.SetStateAction<never[]>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +19,7 @@ export const getMeals = async ({userEmail, setMeals, setLoading}: FetchMealsProp
         // @ts-ignore
         setMeals(meals);
     } catch (error) {
-        console.log("problema la getMeals: ", error);
+        console.log("Error when retrieving meals: ", error);
     } finally {
         setLoading(false);
     }

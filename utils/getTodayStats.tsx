@@ -37,7 +37,7 @@ export const getTodayStats = async (setStats: React.Dispatch<React.SetStateActio
             fats: fats,
 
         }
-        console.log(obj)
+
         setStats(obj);
     } catch (error) {
         console.log("problema la getTodayStats: ", error)

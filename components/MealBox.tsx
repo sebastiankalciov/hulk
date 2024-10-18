@@ -1,7 +1,8 @@
 import {Image, StyleSheet, Text, View} from "react-native";
+import {MealProps} from "@/types";
 
 // @ts-ignore
-const MealBox = ({meal}) =>{
+const MealBox = ({meal}) => {
     return (
         <View key = {meal.id} style = {styles.mealContainer}>
             <Image style = {styles.mealImage} source={{uri: meal.imageURL}}/>

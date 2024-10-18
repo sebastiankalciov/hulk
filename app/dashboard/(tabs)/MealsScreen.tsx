@@ -1,19 +1,19 @@
-import {View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl,} from "react-native";
+import {View, Text, StyleSheet, ScrollView, RefreshControl,} from "react-native";
+import {useCallback, useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {auth} from "@/firebase/config"
-import React, {useEffect, useState} from "react";
-import MealBox from "@/components/MealBox";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {getMeals} from "@/utils/getMeals";
 import LoadingIcon from "@/components/LoadingIcon";
+import MealBox from "@/components/MealBox";
 
 export default function MealsScreen() {
 
     const [meals, setMeals] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [refreshing, setRefreshing] = React.useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
-    const onRefresh = React.useCallback(() => {
+    const onRefresh = useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
             if (auth.currentUser?.email) {

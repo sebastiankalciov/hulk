@@ -1,18 +1,19 @@
 import {Button, View, Text, StyleSheet, Pressable, Alert} from "react-native";
 import {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
+import {FontAwesome5} from "@expo/vector-icons";
 import {auth} from "@/firebase/config"
 import {getFormattedCurrentDate, getCurrentTime} from "@/utils/getFormattedCurrentDate";
 import {getInfo} from "@/utils/getNutritionInfo";
-import {FontAwesome5} from "@expo/vector-icons";
 import {capturePicture} from "@/utils/capturePicture";
 import {getFirestoreImageURL} from "@/utils/getFirestoreImageURL";
 import {addMealToDatabase} from "@/utils/addMealToDatabase";
+
 export default function CameraScreen() {
     const [facing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
-    const referenceToImage = useRef(null);
-    const [imageUri, setImageUri] = useState(null);
+    const cameraReference = useRef<CameraView>(null);
+    const [picture, setPicture] = useState<string>("");
 
     if (!permission)
         return <View/>
@@ -28,13 +29,16 @@ export default function CameraScreen() {
 
     const updateMeal = async () => {
 
-        await capturePicture({referenceToImage, setImageUri}).then(r =>
-            getFirestoreImageURL(`${auth.currentUser?.email}`, imageUri).then(async image => {
+        await capturePicture({cameraReference, setPicture}).then(r =>
+            getFirestoreImageURL(`${auth.currentUser?.email}`, picture).then(async image => {
 
-                if (imageUri === null) return;
+                if (picture === null) return (
+                    Alert.alert("Image", "There was an error when capturing the image. Please try again!")
+                );
+
                 const infoJSONObject = await getInfo(image);
                 if (infoJSONObject === null) return (
-                    Alert.alert("Image unclear", "Make sure the image is of a meal and it is clear.")
+                    Alert.alert("Image unclear", "Please ensure that the image clearly shows a meal.")
                 );
 
                 addMealToDatabase(`${auth.currentUser?.email}`, {
@@ -56,7 +60,7 @@ export default function CameraScreen() {
 
     return (
         <View style = {styles.container} >
-            <CameraView style={styles.camera} facing={facing} ref = {referenceToImage}>
+            <CameraView style={styles.camera} facing={facing} ref = {cameraReference}>
                 <View style={styles.buttonContainer}>
                     <Pressable style = {styles.takePictureButton} onPress={updateMeal}>
                         <FontAwesome5 name="circle" size={70} color="#ffffff" />
