@@ -1,10 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import {getFirestore} from "firebase/firestore"
 import {getStorage} from "firebase/storage"
-
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCiHR6SOo4eS2r6N-AQ8PLM5zR9bg75sU4",
@@ -24,5 +22,5 @@ const auth = initializeAuth(app, {
 const firestore = getFirestore(app)
 
 const storage = getStorage(app);
-// Export the instance to use it when building your app
+
 export {auth, firestore, storage}

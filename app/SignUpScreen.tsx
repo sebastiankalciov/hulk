@@ -8,6 +8,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as Font from "expo-font";
 import {Link} from "expo-router";
 import {styles} from "@/styles/screens/SignUpScreen.styles";
+import {Typography} from "@/styles";
 
 export default function SignUpScreen() {
     const [email, setEmail] = useState('');
@@ -69,7 +70,7 @@ export default function SignUpScreen() {
                         autoCapitalize="none"
                         keyboardType="email-address"
                         placeholder="Enter your email"
-                        placeholderTextColor="#f7f7f7"
+                        placeholderTextColor={Typography.colors.white}
                     />
                     <MaterialIcons style={styles.icon} name="email" size={20} />
                 </View>
@@ -81,7 +82,7 @@ export default function SignUpScreen() {
                         onChangeText={setPassword}
                         secureTextEntry
                         placeholder="Enter your password"
-                        placeholderTextColor="#f7f7f7"
+                        placeholderTextColor={Typography.colors.white}
                     />
                     <MaterialIcons style={styles.icon} name="password" size={20} />
                 </View>
