@@ -1,6 +1,7 @@
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, Text, View} from "react-native";
 import React from "react";
 import {MealBoxProps} from "@/types";
+import {styles} from "@/styles/components/MealBox.styles";
 
 interface MealProps {
     meal: MealBoxProps;
@@ -22,21 +23,21 @@ const MealBox: React.FC<MealProps> = ({meal}) => {
                     Proteins
                 </Text>
                 <Text style = {styles.mealItemText}>
-                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.proteins}</Text>
+                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.proteins}</Text>g
                 </Text>
 
                 <Text style = {styles.mealItemText}>
                     Carbohydrates
                 </Text>
                 <Text style = {styles.mealItemText}>
-                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.carbohydrates}</Text>
+                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.carbohydrates}</Text>g
                 </Text>
 
                 <Text style = {styles.mealItemText}>
                     Fats
                 </Text>
                 <Text style = {styles.mealItemText}>
-                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.fats}</Text>
+                    <Text style = {{fontSize: 20, fontWeight: "bold"}}>{meal.fats}</Text>g
                 </Text>
             </View>
         </View>
@@ -44,57 +45,3 @@ const MealBox: React.FC<MealProps> = ({meal}) => {
 }
 
 export default MealBox;
-
-const styles = StyleSheet.create({
-    container: {
-        fontFamily: "Inter-Regular",
-        flex: 1,
-        backgroundColor: "#131a24",
-        paddingTop: 50,
-        padding: 20,
-    },
-    titleContainer: {
-        flex: 1/6
-    },
-    activityContainer: {
-        flex: 1/2,
-    },
-    activityInsideContainer: {
-        flex: 1/2,
-        backgroundColor: "#212b39",
-        borderRadius: 15,
-    },
-    todayDate: {
-        fontSize: 15,
-        color: "#d4d4d4"
-    },
-    title: {
-        fontSize: 30,
-        fontFamily: "Inter-ExtraBold",
-        fontWeight: "bold",
-        color: "#ffffff"
-    },
-    mealContainer: {
-        flex: 1,
-        flexDirection: "row",
-        backgroundColor: "#1c2631",
-        borderRadius: 15,
-        padding: 10,
-        marginBottom: 10
-    },
-    mealItemText: {
-        fontSize: 15,
-        fontFamily: "Inter-Regular",
-        color: "#ffffff",
-    },
-    mealImage: {
-        width: 100,
-        height: 100,
-    },
-    mealTextContainer: {
-        flex: 1,
-        flexDirection: "column",
-        padding: 20
-
-    }
-})

@@ -1,4 +1,14 @@
-import {Text, View, StyleSheet, KeyboardAvoidingView, TextInput, Pressable, ActivityIndicator, SafeAreaView} from "react-native";
+import {
+    Text,
+    View,
+    StyleSheet,
+    KeyboardAvoidingView,
+    TextInput,
+    Pressable,
+    ActivityIndicator,
+    SafeAreaView,
+    TouchableOpacity
+} from "react-native";
 import {useState} from "react";
 import {FirebaseError} from "@firebase/util";
 import {auth, firestore} from "@/firebase/config";
@@ -95,12 +105,14 @@ export default function SignUpScreen() {
                         <View style={styles.createAccountContainer}>
                             <Text style={styles.createAccountText}>
                                 Already have an account?{' '}
-                                <Link push href = "/">
-                                    <Pressable>
-                                        <Text style={styles.signUpText}>Sign in</Text>
-                                    </Pressable>
-                                </Link>
                             </Text>
+
+                                <Link push href = "/" asChild>
+                                    <TouchableOpacity>
+                                        <Text style={styles.signUpText}>Sign in</Text>
+                                    </TouchableOpacity>
+                                </Link>
+
                         </View>
                     </>
                 )}

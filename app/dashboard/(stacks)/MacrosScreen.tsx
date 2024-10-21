@@ -25,9 +25,11 @@ export default function MacrosScreen() {
         if (auth.currentUser?.email) {
             getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
-
-        getTodayStats(setStats, meals);
     }, []);
+
+    useEffect(() => {
+        getTodayStats(setStats, meals);
+    }, [meals]);
 
     const [fontsLoaded] = Font.useFonts({
         'Inter-Bold': require('@/assets/fonts/Inter/static/Inter-Bold.ttf'),

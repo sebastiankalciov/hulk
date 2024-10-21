@@ -1,5 +1,5 @@
-import {View, Text, StyleSheet, Pressable, RefreshControl, ScrollView} from "react-native";
-import React, {useEffect, useState} from "react";
+import {View, Text, Pressable, RefreshControl, ScrollView} from "react-native";
+import React, {useCallback, useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
 import {Link} from "expo-router";
@@ -24,26 +24,25 @@ export default function HomeScreen() {
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = React.useState(false);
 
-    const onRefresh = React.useCallback(() => {
+    const onRefresh = useCallback(() => {
         setRefreshing(true);
-        setTimeout(() => {
-            if (auth.currentUser?.email) {
-                getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
-            }
 
-            getTodayStats(setStats, meals);
+        if (auth.currentUser?.email) {
+            getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+        }
 
-            setRefreshing(false);
-        }, 2000);
+        setRefreshing(false);
     }, []);
 
     useEffect(() => {
         if (auth.currentUser?.email) {
             getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
-
-        getTodayStats(setStats, meals);
     }, []);
+
+    useEffect(() => {
+        getTodayStats(setStats, meals);
+    }, [meals]);
 
     const [fontsLoaded] = Font.useFonts({
         'Inter-Bold': require('@/assets/fonts/Inter/static/Inter-Bold.ttf'),

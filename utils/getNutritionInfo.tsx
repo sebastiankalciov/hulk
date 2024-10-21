@@ -8,9 +8,9 @@ const openai = new OpenAI({
 
 const instruction = "In this photo it's supposed to be food." +
     "Return a string JSON (without the code block, pure string) of the following format:" +
-    "{\"calories\": 'number of calories the food has', \"proteins\": 'how many proteins the food has'," +
-    "\"carbohydrates\": 'how many carbohydrates the food has'" +
-    "\"fats\": 'how many fats the food has'}" +
+    "{\"calories\": number of calories the food has, \"proteins\": how many proteins the food has," +
+    "\"carbohydrates\": how many carbohydrates the food has" +
+    "\"fats\": how many fats the food has" +
     "If the photo is not of a meal, or is it unclear, return null"
 export async function getInfo(imageURL: string | undefined) {
     if (imageURL === undefined) return;
@@ -35,9 +35,17 @@ export async function getInfo(imageURL: string | undefined) {
     const info = response.choices[0].message.content;
     if (info == null || info == "null") return null;
 
-    const infoJSONObject = JSON.parse(info);
+    try {
+        console.log(info)
+        return JSON.parse(info);
 
-    return infoJSONObject;
+    } catch(e) {
+        console.log(e);
+        return undefined;
+    }
+
+
+
 
 }
 

@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, ScrollView, RefreshControl,} from "react-native";
+import {View, Text, ScrollView, RefreshControl,} from "react-native";
 import {useCallback, useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {auth} from "@/firebase/config"
@@ -16,12 +16,12 @@ export default function MealsScreen() {
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        setTimeout(() => {
-            if (auth.currentUser?.email) {
-                getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
-            }
-            setRefreshing(false);
-        }, 2000);
+
+        if (auth.currentUser?.email) {
+            getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
+        }
+
+        setRefreshing(false);
     }, []);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ export default function MealsScreen() {
             getMeals({userEmail: auth.currentUser.email, setMeals: setMeals, setLoading: setLoading});
         }
     }, []);
+
 
     const [fontsLoaded] = Font.useFonts({
         'Inter-Bold': require('@/assets/fonts/Inter/static/Inter-Bold.ttf'),
@@ -46,13 +47,15 @@ export default function MealsScreen() {
 
     if (meals.length === 0) {
         return (
-            <View style = {styles.container} >
+            <ScrollView style = {styles.container} refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
                 <View style={styles.titleContainer}>
                     <Text style = {styles.todayDate}>{new Date().toDateString()}</Text>
                     <Text style = {styles.title}>Recent meals</Text>
                     <MaterialIcons name="sentiment-dissatisfied" size={24} color="white" />
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 

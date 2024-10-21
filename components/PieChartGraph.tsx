@@ -1,15 +1,15 @@
 import {PieChart} from "react-native-chart-kit";
 import React from "react";
 import {Dimensions} from "react-native";
-import {Stats} from "@/types";
+import {StatsProps} from "@/types";
 
 const PROTEIN_CHART_COLOR = "rgb(190,72,72)";
 const CARBS_CHART_COLOR = "rgb(210,164,131)";
 const FATS_CHART_COLOR = "rgb(229,206,106)";
 
-const PieChartGraph = (stats: Stats) => {
+const PieChartGraph = (stats: StatsProps) => {
 
-    const chartConfig = {
+    const chartConfig ={
         color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
         strokeWidth: 2,
         barPercentage: 0.5,

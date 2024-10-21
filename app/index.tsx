@@ -5,7 +5,7 @@ import {
     KeyboardAvoidingView,
     TextInput,
     Pressable,
-    ActivityIndicator, StatusBar, SafeAreaView, Platform
+    ActivityIndicator, StatusBar, SafeAreaView, Platform, TouchableOpacity
 } from "react-native";
 
 import {useState} from "react";
@@ -90,12 +90,12 @@ export default function Index() {
                         <View style={styles.createAccountContainer}>
                             <Text style={styles.createAccountText}>
                                 Don't have an account?{' '}
-                                <Link href = "/SignUpScreen">
-                                    <Pressable>
-                                        <Text style={styles.signUpText}>Sign up</Text>
-                                    </Pressable>
-                                </Link>
                             </Text>
+                            <Link href = "/SignUpScreen" asChild>
+                                <TouchableOpacity>
+                                    <Text style={styles.signUpText}>Sign up</Text>
+                                </TouchableOpacity>
+                            </Link>
                         </View>
                     </>
                 )}

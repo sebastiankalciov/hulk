@@ -33,13 +33,18 @@ export default function CameraScreen() {
         await capturePicture({cameraReference, setPicture}).then(r =>
             getFirestoreImageURL(`${auth.currentUser?.email}`, picture).then(async image => {
 
-                if (picture === null) return (
+
+                if (picture === null || image === undefined) return (
                     Alert.alert("Image", "There was an error when capturing the image. Please try again!")
                 );
 
                 const infoJSONObject = await getInfo(image);
                 if (infoJSONObject === null) return (
                     Alert.alert("Image unclear", "Please ensure that the image clearly shows a meal.")
+                );
+
+                if (infoJSONObject === undefined) return (
+                    Alert.alert("Image", "There was an error when capturing the image. Please try again!")
                 );
 
                 addMealToDatabase(`${auth.currentUser?.email}`, {

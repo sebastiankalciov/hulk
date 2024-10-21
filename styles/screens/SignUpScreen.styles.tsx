@@ -75,10 +75,9 @@ export const styles = StyleSheet.create({
     },
 
     createAccountContainer: {
-        marginTop: 20,
+        marginTop: 40,
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center",
 
     },
 
@@ -90,7 +89,7 @@ export const styles = StyleSheet.create({
 
     signUpText: {
         color: Typography.colors.white,
-        fontSize: 14,
+        fontSize: 16,
         lineHeight: 20,
         fontWeight: 'bold',
     },

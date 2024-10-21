@@ -15,5 +15,6 @@ export const getFirestoreImageURL = async (userEmail: string, imageURI: string) 
 
     } catch (error) {
         console.log("Error when fetching firestore image url: ", error);
+        return undefined;
     }
 }
